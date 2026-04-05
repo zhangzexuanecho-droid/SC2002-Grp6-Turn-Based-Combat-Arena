@@ -9,6 +9,7 @@ public class Warrior extends Player {
     }
 
     public Action chooseAction() {
+        // player can choose among 4 actions
         return null;
     }
 
