@@ -9,11 +9,14 @@ public class Warrior extends Player {
     }
 
     public Action chooseAction() {
-        // player can choose among 4 actions
-        return null;
+        // to be inplemented later
+        return null
     }
 
     public void useSpecialSkill(Combatant target) {
-        // to be implemented later
+        int damage = Math.max(0, this.attack - target.getDefense());
+        target.receiveDamage(damage);
+        target.addStatusEffect(new StunEffect(2));
+        this.skillCooldown = 3;
     }
 }
