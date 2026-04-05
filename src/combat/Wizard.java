@@ -40,12 +40,7 @@ public class Wizard extends Player {
     }
 
     public void useSpecialSkill(List<Combatant> targets) {
-        System.out.println(name + " casts Arcane Blast!");
-        for (Combatant target : targets) {
-            int damage = Math.max(0, this.attack - target.getDefense());
-            target.receiveDamage(damage);
-            System.out.println(target.getName() + " takes " + damage + " damage!");
-        }
         this.skillCooldown = 3;
+        System.out.println(this.name + " uses Arcane Blast！");
     }
 }
