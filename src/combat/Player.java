@@ -9,11 +9,13 @@ public abstract class Player extends Combatant {
 
     protected List<Item> inventory;
     protected int skillCooldown;
+    protected Combatant target;
 
     public Player(String name, int hp, int attack, int defense, int speed) {
         super(name, hp, attack, defense, speed);
         this.inventory = new ArrayList<>();
         this.skillCooldown = 0;
+        this.target = null;
     }
 
     @Override
@@ -25,7 +27,7 @@ public abstract class Player extends Combatant {
         }
         Action a = chooseAction(); 
         if (a != null) {
-            a.execute(this, target);
+            a.execute(this, this.target);
         }
     }
 
