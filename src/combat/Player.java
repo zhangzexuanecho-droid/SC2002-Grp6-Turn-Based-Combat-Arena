@@ -19,8 +19,13 @@ public abstract class Player extends Combatant {
     @Override
     public void takeTurn() {
         super.takeTurn();
-        if (isAlive() && skillCooldown > 0) {
-            skillCooldown--;
+        if (!isAlive()) return;
+        if (skillCooldown > 0) {
+        skillCooldown--;
+        }
+        Action a = chooseAction(); 
+        if (a != null) {
+            a.execute(this, target);
         }
     }
 
