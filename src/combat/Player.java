@@ -2,6 +2,8 @@ package combat;
 
 import java.util.ArrayList;
 import java.util.List;
+import item.Item;
+import action.Action;
 
 public abstract class Player extends Combatant {
 
