@@ -9,7 +9,7 @@ public abstract class Combatant {
     protected int attack;
     protected int defense;
     protected int speed;
-    protected List<IStatusEffect> statusEffects;
+    protected List<StatusEffect> statusEffects;
 
     public Combatant(String name, int hp, int attack, int defense, int speed) {
         this.name = name;
