@@ -4,45 +4,67 @@ import java.util.List;
 public abstract class Combatant {
     protected String name;
     protected int hp;
-    protected int mp;
+    protected int maxHp;
     protected int attack;
     protected int defense;
     protected int speed;
     protected List<IStatusEffect> statusEffects;
 
-    public Combatant(String name, int hp, int mp, int attack, int defense, int speed) {
+    public Combatant(String name, int hp, int attack, int defense, int speed) {
         this.name = name;
         this.hp = hp;
-        this.mp = mp;
+        this.maxHp = hp;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
         this.statusEffects = new ArrayList<>();
     }
 
-    public int takeDamage(int amount) {
+    public void receiveDamage(int amount) {
         int actualDamage = Math.max(0, amount - defense);
         hp = Math.max(0, hp - actualDamage);
-        return actualDamage;
     }
 
     public void heal(int amount) {
-        hp += amount;
+        hp = Math.min(maxHp, hp + amount);
+    }
+
+    public boolean isAlive() {
+        return hp > 0;
     }
 
     public void addStatusEffect(IStatusEffect effect) {
         statusEffects.add(effect);
     }
 
-    public void updateStatusEffects() {
+    public void applyStatusEffects() {
         for (IStatusEffect effect : statusEffects) {
             effect.applyEffect(this);
-            effect.decreaseDuration();
         }
         statusEffects.removeIf(IStatusEffect::isExpired);
     }
 
-    public boolean isAlive() {
-        return hp > 0;
+    public String getName() {
+        return name;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }
