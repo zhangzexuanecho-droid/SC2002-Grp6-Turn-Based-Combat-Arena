@@ -10,11 +10,42 @@ public class Wizard extends Player {
     }
 
     public Action chooseAction() {
-        // Wizard can choose among BasicAttack, Defend, UseItem, and SpecialSkill
-        return null;
+        System.out.println("\n--- Wizard's Turn ---");
+        System.out.println("1. Basic Attack");
+        System.out.println("2. Defend");
+        System.out.println("3. Use Item");
+
+        if (this.skillCooldown == 0) {
+            System.out.println("4. Special Skill (Arcane Blast - AoE)");
+        } 
+        else {
+            System.out.println("4. [Skill Cooldown: " + skillCooldown + " turns]");
+        }
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1: return new BasicAttack();
+            case 2: return new Defend();
+            case 3: return UseItem(); // 调用 Player 类中的通用道具菜单
+            case 4:
+                if (this.skillCooldown == 0) return new ArcaneBlast();
+                else {
+                    System.out.println("Mana recovering... Skill not ready!");
+                    return new BasicAttack();
+                }
+            default:
+                return new BasicAttack();
+        }
     }
 
     public void useSpecialSkill(List<Combatant> targets) {
-        // to be implemented later
+        System.out.println(name + " casts Arcane Blast!");
+        for (Combatant target : targets) {
+            int damage = Math.max(0, this.attack - target.getDefense());
+            target.receiveDamage(damage);
+            System.out.println(target.getName() + " takes " + damage + " damage!");
+        }
+        this.skillCooldown = 3;
     }
 }
