@@ -21,6 +21,13 @@ public abstract class Combatant {
         this.statusEffects = new ArrayList<>();
     }
 
+    public void takeTurn() {
+        applyStatusEffects();
+        if (!isAlive()) {
+            return;
+        }
+    }
+
     public void receiveDamage(int amount) {
         int actualDamage = Math.max(0, amount - defense);
         hp = Math.max(0, hp - actualDamage);
