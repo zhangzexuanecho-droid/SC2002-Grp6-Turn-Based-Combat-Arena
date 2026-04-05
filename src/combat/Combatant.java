@@ -34,15 +34,15 @@ public abstract class Combatant {
         return hp > 0;
     }
 
-    public void addStatusEffect(IStatusEffect effect) {
+    public void addStatusEffect(StatusEffect effect) {
         statusEffects.add(effect);
     }
 
     public void applyStatusEffects() {
-        for (IStatusEffect effect : statusEffects) {
-            effect.applyEffect(this);
+        for (StatusEffect effect : statusEffects) {
+            effect.apply(this);
         }
-        statusEffects.removeIf(IStatusEffect::isExpired);
+        statusEffects.removeIf(StatusEffect::isExpired);
     }
 
     public String getName() {
