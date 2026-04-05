@@ -39,9 +39,7 @@ public class Warrior extends Player {
     }
 
     public void useSpecialSkill(Combatant target) {
-        int damage = Math.max(0, this.attack - target.getDefense());
-        target.receiveDamage(damage);
-        target.addStatusEffect(new StunEffect(2));
         this.skillCooldown = 3;
+        System.out.println(this.name + " uses Shield Bash!");
     }
 }
