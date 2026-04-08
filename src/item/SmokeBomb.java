@@ -1,26 +1,34 @@
 package item;
 
 import combat.Combatant;
-import java.util.List;
 
 public class SmokeBomb implements Item {
 
-    private int effectDuration;
+    private int duration; // how many rounds the effect lasts
 
-    public SmokeBomb() {
-        this.effectDuration = 1; // matches your sample: 1 turn remaining
+    public SmokeBomb(String difficulty) {
+        switch (difficulty.toLowerCase()) {
+            case "easy": duration = 2; break;
+            case "medium": duration = 2; break;
+            case "hard": duration = 3; break;
+            default: duration = 2;
+        }
     }
 
     @Override
     public void use(Combatant user) {
-        // Apply Smoke Bomb effect to the battlefield
-        user.activateSmokeBomb(effectDuration); // assume player class has a method to reduce damage from enemies
+        
+        System.out.println(user.getName() + " → Item → Smoke Bomb used: "
+                + "Enemy attacks deal 0 damage this turn + next");
 
-        System.out.println(user.getName() + " → Item → Smoke Bomb used: Enemy attacks deal 0 damage this turn + next");
     }
 
     @Override
     public String getName() {
         return "Smoke Bomb";
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }
