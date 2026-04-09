@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.ArrayList;
 
+import combat.Combatant;
+import combat.Player;
+import combat.Enemy;
+
 public class BattleEngine {
     
     private List<Combatant> combatants;
