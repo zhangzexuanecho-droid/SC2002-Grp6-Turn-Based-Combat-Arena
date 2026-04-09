@@ -50,3 +50,10 @@ public class BattleEngine {
                 }
             }
         }
+        return !hasPlayerAlive || !hasEnemyAlive;
+    }
+
+    public void processTurn() {
+        combatants.removeIf(c -> !c.isAlive());
+    }
+}
