@@ -1,33 +1,18 @@
-
 package action;
 
 import combat.Combatant;
-import combat.StatusEffect;
 
-public class Defend implements Action 
+public class BasicAttack implements Action 
 {
 
+    @Override
     public void execute(Combatant user, Combatant target) 
     {
 
-        user.addStatusEffect(new StatusEffect() 
-        {
+        int damage = user.getAttack(); 
 
-            private int duration = 2;
+        target.receiveDamage(damage);
 
-            public void apply(Combatant target) 
-            {
-                // temporary boost
-                target.defense += 10;
-                duration--;
-            }
-
-            public boolean isExpired() 
-            {
-                return duration <= 0;
-            }
-        });
-
-        System.out.println(user.getName() + " is defending!");
+        //System.out.println(user.getName() + " attacks " + target.getName() + "!");
     }
 }
