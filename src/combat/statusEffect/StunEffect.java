@@ -1,4 +1,4 @@
-package combat;
+package combat.statusEffect;
 
 public class StunEffect implements StatusEffect {
 
