@@ -40,16 +40,24 @@ public abstract class Player extends Combatant {
     }
 
     @Override
-    public void takeTurn() {
+    public void takeTurn(BattleEngine engine) {
         super.takeTurn();
         if (!isAlive()) return;
+
         if (skillCooldown > 0) {
-        skillCooldown--;
+            skillCooldown--;
         }
-        Action a = chooseAction(); 
-        if (a != null) {
-            //a.execute(this, target)
+
+        Action a = chooseAction();
+        if (a == null) return;
+
+        Combatant target = null;
+
+        if (a.requiresTarget()) {
+            target = selectTarget(engine);
         }
+
+        a.execute(this, target);
     }
 
     public abstract Action chooseAction();
