@@ -24,6 +24,8 @@ public class Warrior extends Player {
         }
 
         int choice = scanner.nextInt();
+        //ui.displayActionMenu();
+        //int choice = ui.getValidInput(1, 4);
     
         switch (choice) {
             case 1: return new BasicAttack();
