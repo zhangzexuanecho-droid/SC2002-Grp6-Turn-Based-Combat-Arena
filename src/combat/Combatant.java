@@ -21,7 +21,7 @@ public abstract class Combatant {
         this.statusEffects = new ArrayList<>();
     }
 
-    public void takeTurn() {
+    public void takeTurn(BattleEngine engine, GameUI ui) {
         applyStatusEffects();
         if (!isAlive()) {
             return;
