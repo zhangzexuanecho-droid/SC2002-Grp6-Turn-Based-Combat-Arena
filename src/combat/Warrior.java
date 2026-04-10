@@ -1,7 +1,7 @@
 package combat;
 
 import action.Action;
-
+import BattleEngine.GameUI;
 public class Warrior extends Player {
 
     public Warrior() {
