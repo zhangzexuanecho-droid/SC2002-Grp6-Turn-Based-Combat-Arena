@@ -9,7 +9,7 @@ public class ShieldBash extends SpecialSkill
     @Override
     protected void applySkill (Player user, Combatant target)
     {
-      target.recieveDamage(user.getAttack());
+      target.receiveDamage(user.getAttack());
       target.addStatusEffect(new StatusEffect()
       {
         private int duration = 2;
