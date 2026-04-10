@@ -28,7 +28,7 @@ public class Wizard extends Player {
         switch (choice) {
             case 1: return new BasicAttack();
             case 2: return new Defend();
-            case 3: return UseItem(); // 调用 Player 类中的通用道具菜单
+            case 3: return UseItem(); 
             case 4:
                 if (this.canUseSkill()) return new ArcaneBlast();
                 else {
