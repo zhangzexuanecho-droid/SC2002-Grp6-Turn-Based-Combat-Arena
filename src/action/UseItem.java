@@ -18,6 +18,6 @@ public class UseItem implements Action
     {
         item.use(user);
 
-        //System.out.println(user.getName() + " uses an item.");
+        System.out.println(user.getName() + " uses an item.");
     }
 }
