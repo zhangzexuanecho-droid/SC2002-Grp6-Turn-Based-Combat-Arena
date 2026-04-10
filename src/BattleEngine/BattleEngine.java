@@ -36,7 +36,7 @@ public class BattleEngine {
                 currentCombatant.applyStatusEffects();
                 
                 if (currentCombatant.isAlive()) {
-                    currentCombatant.takeTurn();
+                    currentCombatant.takeTurn(this);
                     processTurn();
                 }
             }
