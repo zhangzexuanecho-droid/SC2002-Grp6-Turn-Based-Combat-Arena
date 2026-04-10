@@ -1,4 +1,4 @@
-package combat;
+package combat.statusEffect;
 
 public class DefendEffect implements StatusEffect {
 
