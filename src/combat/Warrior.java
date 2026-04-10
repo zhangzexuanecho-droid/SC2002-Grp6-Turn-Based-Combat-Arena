@@ -8,7 +8,7 @@ public class Warrior extends Player {
         super("Warrior", 260, 40, 20, 30);
     }
 
-    @Override
+    /*
     public Action chooseAction() {
         System.out.println("\n--- Choose your action ---");
         System.out.println("1. Basic Attack");
@@ -24,8 +24,7 @@ public class Warrior extends Player {
         }
 
         int choice = scanner.nextInt();
-        //ui.displayActionMenu();
-        //int choice = ui.getValidInput(1, 4);
+    
     
         switch (choice) {
             case 1: return new BasicAttack();
@@ -36,6 +35,26 @@ public class Warrior extends Player {
                 else System.out.println("Skill not ready!");
             default: 
                 System.out.println("Invalid choice, defaulting to Attack.");
+                return new BasicAttack();
+        }
+    }
+    */
+    @Override
+    public Action chooseAction(GameUI ui) {
+        ui.displayActionMenu();
+        int choice = ui.getValidInput(1, 4);
+
+        switch (choice) {
+            case 1: return new BasicAttack();
+            case 2: return new Defend();
+            case 3: return new UseItem();
+            case 4:
+                if (canUseSkill()) return new ShieldBash();
+                else {
+                    System.out.println("Skill not ready!");
+                    return new BasicAttack();
+                }
+            default:
                 return new BasicAttack();
         }
     }
