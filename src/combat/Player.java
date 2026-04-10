@@ -40,7 +40,7 @@ public abstract class Player extends Combatant {
     }
 
     @Override
-    public void takeTurn(BattleEngine engine) {
+    public void takeTurn(BattleEngine engine, GameUI ui) {
         super.takeTurn();
         if (!isAlive()) return;
 
@@ -48,7 +48,7 @@ public abstract class Player extends Combatant {
             skillCooldown--;
         }
 
-        Action a = chooseAction();
+        Action a = chooseAction(ui);
         if (a == null) return;
 
         Combatant target = null;
@@ -60,7 +60,7 @@ public abstract class Player extends Combatant {
         a.execute(this, target);
     }
 
-    public abstract Action chooseAction();
+    public abstract Action chooseAction(GameUI ui);
 
     public boolean canUseSkill() {
         return skillCooldown == 0;
