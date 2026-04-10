@@ -28,7 +28,7 @@ public class Warrior extends Player {
         switch (choice) {
             case 1: return new BasicAttack();
             case 2: return new Defend(); 
-            case 3: return UseItem(); 
+            case 3: return new UseItem(); 
             case 4: 
                 if (this.canUseSkill()) return new ShieldBash();
                 else System.out.println("Skill not ready!");
