@@ -16,6 +16,29 @@ public abstract class Player extends Combatant {
         this.skillCooldown = 0;
     }
 
+    public Combatant selectTarget(BattleEngine engine) {
+        List<Combatant> enemies = engine.getAliveEnemiesOf(this);
+
+        if (enemies.isEmpty()) {
+            System.out.println("No targets available.");
+            return null;
+        }
+
+        System.out.println("Choose target:");
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println((i + 1) + ". " + enemies.get(i).getName());
+        }
+
+        int choice = scanner.nextInt();
+
+        if (choice < 1 || choice > enemies.size()) {
+            System.out.println("Invalid choice, defaulting to first target.");
+            return enemies.get(0);
+        }
+
+        return enemies.get(choice - 1);
+    }
+
     @Override
     public void takeTurn() {
         super.takeTurn();
