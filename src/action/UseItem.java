@@ -1,23 +1,27 @@
-package action;
-
-import combat.Combatant;
-import item.Item;
-
-public class UseItem implements Action 
-{
-
-    private Item item;
-
-    public UseItem(Item item) 
-    {
-        this.item = item;
-    }
+public class UseItem implements Action {
 
     @Override
-    public void execute(Combatant user, Combatant target) 
-    {
-        item.use(user);
+    public void execute(Player player, Combatant target) {
 
-        System.out.println(user.getName() + " uses an item.");
+        List<Item> inv = player.getInventory();
+
+        if (inv.isEmpty()) {
+            System.out.println("No items available!");
+            return;
+        }
+
+        System.out.println("Choose item:");
+
+        for (int i = 0; i < inv.size(); i++) {
+            System.out.println(i + ": " + inv.get(i).getName());
+        }
+
+        int choice = Player.scanner.nextInt();
+
+        Item item = player.removeItem(choice);
+
+        if (item != null) {
+            item.use(player, target);
+        }
     }
 }
