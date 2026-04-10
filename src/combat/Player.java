@@ -25,11 +25,23 @@ public abstract class Player extends Combatant {
         }
         Action a = chooseAction(); 
         if (a != null) {
-            a.execute(this, target)
+            //a.execute(this, target)
         }
     }
 
     public abstract Action chooseAction();
+
+    public boolean canUseSkill() {
+        return skillCooldown == 0;
+    }
+
+    public void setCooldown(int turns) {
+        this.skillCooldown = turns;
+    }
+
+    public int getSkillCooldown() {
+        return skillCooldown;
+    }
 
     public List<Item> getInventory() {
         return inventory;
