@@ -31,4 +31,15 @@ public abstract class Player extends Combatant {
     }
 
     public abstract Action chooseAction();
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public Item removeItem(int index) {
+        if (index >= 0 && index < inventory.size()) {
+            return inventory.remove(index);
+        }
+        return null;
+    }
 }
