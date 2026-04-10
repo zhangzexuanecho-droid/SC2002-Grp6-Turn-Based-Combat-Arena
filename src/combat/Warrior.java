@@ -16,11 +16,11 @@ public class Warrior extends Player {
         System.out.println("3. Use Item");
         
    
-        if (this.skillCooldown == 0) {
+        if (this.canUseSkill()) {
             System.out.println("4. Special Skill (Shield Bash)");
         } 
         else {
-            System.out.println("4. [Skill Cooldown: " + skillCooldown + " turns]");
+            System.out.println("4. [Skill Cooldown: " + getSkillCooldown() + " turns]");
         }
 
         int choice = scanner.nextInt();
@@ -30,7 +30,7 @@ public class Warrior extends Player {
             case 2: return new Defend(); 
             case 3: return UseItem(); 
             case 4: 
-                if (this.skillCooldown == 0) return new ShieldBash();
+                if (this.canUseSkill()) return new ShieldBash();
                 else System.out.println("Skill not ready!");
             default: 
                 System.out.println("Invalid choice, defaulting to Attack.");
@@ -39,7 +39,7 @@ public class Warrior extends Player {
     }
 
     public void useSpecialSkill(Combatant target) {
-        this.skillCooldown = 3;
+        //this.skillCooldown = 3;
         System.out.println(this.name + " uses Shield Bash!");
     }
 }
