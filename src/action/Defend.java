@@ -29,6 +29,6 @@ public class Defend implements Action
             }
         });
 
-        //System.out.println(user.getName() + " is defending!");
+        System.out.println(user.getName() + " is defending!");
     }
 }

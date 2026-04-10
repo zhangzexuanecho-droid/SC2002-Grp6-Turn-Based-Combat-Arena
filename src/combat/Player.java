@@ -25,7 +25,7 @@ public abstract class Player extends Combatant {
         }
         Action a = chooseAction(); 
         if (a != null) {
-           //to be implemented （BattleEngine handles the Target Selection）
+           a.
         }
     }
 
