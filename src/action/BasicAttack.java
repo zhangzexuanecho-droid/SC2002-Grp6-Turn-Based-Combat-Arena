@@ -13,6 +13,6 @@ public class BasicAttack implements Action
 
         target.receiveDamage(damage);
 
-        //System.out.println(user.getName() + " attacks " + target.getName() + "!");
+        System.out.println(user.getName() + " attacks " + target.getName() + "!");
     }
 }
