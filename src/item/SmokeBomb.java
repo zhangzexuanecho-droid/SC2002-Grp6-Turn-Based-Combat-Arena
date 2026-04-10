@@ -1,10 +1,11 @@
 package item;
 
 import combat.Combatant;
+import combat.statusEffect.SmokeBombEffect;
 
 public class SmokeBomb implements Item {
 
-    private int duration; // how many rounds the effect lasts
+    private int duration; 
 
     public SmokeBomb(String difficulty) {
         switch (difficulty.toLowerCase()) {
