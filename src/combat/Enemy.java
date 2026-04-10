@@ -1,7 +1,11 @@
 package combat;
 
+import BattleEngine.BattleEngine;
+import BattleEngine.GameUI;
 import action.Action;
 import action.BasicAttack;
+
+import java.util.List;
 
 public abstract class Enemy extends Combatant {
 
@@ -11,5 +15,22 @@ public abstract class Enemy extends Combatant {
 
     public Action decideAction() {
         return new BasicAttack();
+    
+   @Override
+    public void takeTurn(BattleEngine engine, GameUI ui) {
+
+        List<Combatant> targets = engine.getAliveEnemiesOf(this);
+        if (targets.isEmpty()) return;
+
+        Combatant target = targets.get(0); // simplest
+
+        Action action = decideAction(); // ✅ 用这个
+
+        if (action.requiresTarget()) {
+            action.execute(this, target);
+        } 
+        else {
+            action.execute(this, null);
+        }
     }
 }
