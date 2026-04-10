@@ -1,4 +1,4 @@
-package BattleEngine
+package BattleEngine;
 
 import java.util.List;
 import java.util.ArrayList;
