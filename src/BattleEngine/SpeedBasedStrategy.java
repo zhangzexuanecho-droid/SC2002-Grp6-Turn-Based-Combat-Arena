@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import combat.Combatant;
+
 public class SpeedBasedStrategy implements TurnOrderStrategy {
 
     @Override
