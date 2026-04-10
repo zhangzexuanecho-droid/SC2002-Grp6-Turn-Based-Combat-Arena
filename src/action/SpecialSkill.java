@@ -3,7 +3,7 @@ package action;
 import combat.Combatant;
 import combat.Player;
 
-public class SpecialSkill implements Action 
+public abstract class SpecialSkill implements Action 
 {
 
     @Override
@@ -23,9 +23,10 @@ public class SpecialSkill implements Action
             return;
         }
 
-        player.useSpecialSkill(target);
-        player.resetCooldown();
+        applySkill(player, target);
+        player.setCooldown(3);
 
         //System.out.println(user.getName() + " uses their special skill!");
     }
+    protected abstract void applySkill( Player user, Combatant target);
 }
