@@ -9,6 +9,7 @@ public class Wizard extends Player {
         super("Wizard", 200, 50, 10, 20);
     }
 
+    @Override
     public Action chooseAction() {
         System.out.println("\n--- Wizard's Turn ---");
         System.out.println("1. Basic Attack");
