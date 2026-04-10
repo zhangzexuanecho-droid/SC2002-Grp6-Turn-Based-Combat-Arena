@@ -25,7 +25,6 @@ public abstract class Player extends Combatant {
         }
         Action a = chooseAction(); 
         if (a != null) {
-            target = selectTarget()
             a.execute(this, target)
         }
     }
