@@ -16,11 +16,11 @@ public class Wizard extends Player {
         System.out.println("2. Defend");
         System.out.println("3. Use Item");
 
-        if (this.skillCooldown == 0) {
+        if (this.canUseSkill()) {
             System.out.println("4. Special Skill (Arcane Blast - AoE)");
         } 
         else {
-            System.out.println("4. [Skill Cooldown: " + skillCooldown + " turns]");
+            System.out.println("4. [Skill Cooldown: " + getSkillCooldown() + " turns]");
         }
 
         int choice = scanner.nextInt();
@@ -30,7 +30,7 @@ public class Wizard extends Player {
             case 2: return new Defend();
             case 3: return UseItem(); // 调用 Player 类中的通用道具菜单
             case 4:
-                if (this.skillCooldown == 0) return new ArcaneBlast();
+                if (this.canUseSkill()) return new ArcaneBlast();
                 else {
                     System.out.println("Mana recovering... Skill not ready!");
                     return new BasicAttack();
@@ -41,7 +41,7 @@ public class Wizard extends Player {
     }
 
     public void useSpecialSkill(List<Combatant> targets) {
-        this.skillCooldown = 3;
+        //this.skillCooldown = 3;
         System.out.println(this.name + " uses Arcane Blast！");
     }
 }
