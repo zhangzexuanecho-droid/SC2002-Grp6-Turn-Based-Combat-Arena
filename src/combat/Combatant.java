@@ -21,7 +21,7 @@ public abstract class Combatant {
         this.statusEffects = new ArrayList<>();
     }
 
-    public abstract void takeTurn(BattleEngine engine, GameUI ui) 
+    public abstract void takeTurn(BattleEngine engine, GameUI ui) ;
 
     public void receiveDamage(int amount) {
         int actualDamage = Math.max(0, amount - defense);
