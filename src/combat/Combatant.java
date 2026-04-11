@@ -22,9 +22,33 @@ public abstract class Combatant {
     }
 
     public abstract void takeTurn(BattleEngine engine, GameUI ui) ;
+/*
+    public boolean updateStatusEffects() {
+        boolean canAct = true;
+
+        for (StatusEffect effect : statusEffects) {
+            if (effect.preventsAction()) {
+                canAct = false;
+            }
+        }
+
+        for (StatusEffect effect : statusEffects) {
+            effect.apply(this);
+        }
+
+        statusEffects.removeIf(StatusEffect::isExpired);
+
+        return canAct;
+    }
+    */
 
     public void receiveDamage(int amount) {
         int actualDamage = Math.max(0, amount - defense);
+        /*
+        for (StatusEffect effect : statusEffects) {
+            actualDamage = effect.modifyIncomingDamage(actualDamage);
+        }
+        */
         hp = Math.max(0, hp - actualDamage);
     }
 
