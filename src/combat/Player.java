@@ -41,8 +41,15 @@ public abstract class Player extends Combatant {
 
     @Override
     public void takeTurn(BattleEngine engine, GameUI ui) {
-        super.takeTurn();
         if (!isAlive()) return;
+      
+        /*
+        boolean canAct = processTurnStartEffects();
+        if (!canAct) {
+            System.out.println(getName() + " cannot act this turn!");
+            return;
+        }
+        */
 
         if (skillCooldown > 0) {
             skillCooldown--;
