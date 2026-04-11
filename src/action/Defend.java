@@ -31,4 +31,10 @@ public class Defend implements Action
 
         System.out.println(user.getName() + " is defending!");
     }
+
+    @Override
+    public boolean requiresTarget() 
+    {
+        return false;
+    }
 }
