@@ -22,7 +22,8 @@ public abstract class Combatant {
     }
 
     public abstract void takeTurn(BattleEngine engine, GameUI ui) ;
-/*
+    
+    /*
     public boolean updateStatusEffects() {
         boolean canAct = true;
 
