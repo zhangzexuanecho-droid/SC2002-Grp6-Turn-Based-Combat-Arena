@@ -33,11 +33,11 @@ public class UseItem implements Action {
         Item item = player.removeItem(choice);
 
         if (item != null) {
-            item.use(player, target);
+            item.use(player);
         }
     }
 
     @Override
     public boolean requiresTarget() {
-        return true; 
+        return false; 
 }
