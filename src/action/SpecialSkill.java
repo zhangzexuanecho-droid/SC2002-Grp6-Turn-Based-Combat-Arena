@@ -28,5 +28,10 @@ public abstract class SpecialSkill implements Action
 
         //System.out.println(user.getName() + " uses their special skill!");
     }
+    @Override
+    public boolean requiresTarget() 
+    {
+        return true; // default
+    }
     protected abstract void applySkill( Player user, Combatant target);
 }
