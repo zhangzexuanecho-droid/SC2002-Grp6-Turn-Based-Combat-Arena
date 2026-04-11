@@ -15,4 +15,10 @@ public class BasicAttack implements Action
 
         System.out.println(user.getName() + " attacks " + target.getName() + "!");
     }
+
+    @Override
+    public boolean requiresTarget() 
+    {
+        return true;
+    }
 }
