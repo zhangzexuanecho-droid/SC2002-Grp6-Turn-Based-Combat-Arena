@@ -1,7 +1,19 @@
+package action;
+
+import combat.Combatant;
+import combat.Player;
+import item.Item;
+
+import java.util.List;
+
 public class UseItem implements Action {
 
     @Override
-    public void execute(Player player, Combatant target) {
+    public void execute(Combatant user, Combatant target) {
+
+        if (!(user instanceof Player)) return;
+
+        Player player = (Player) user;
 
         List<Item> inv = player.getInventory();
 
@@ -24,4 +36,8 @@ public class UseItem implements Action {
             item.use(player, target);
         }
     }
+
+    @Override
+    public boolean requiresTarget() {
+        return true; 
 }
