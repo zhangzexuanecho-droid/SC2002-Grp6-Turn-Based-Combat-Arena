@@ -24,7 +24,7 @@ public abstract class Enemy extends Combatant {
         if (targets.isEmpty()) return;
        
        /*
-        boolean canAct = processTurnStartEffects();
+        boolean canAct = updateStatusEffects();
         if (!canAct) {
             System.out.println(getName() + " cannot act this turn!");
             return;
