@@ -33,4 +33,10 @@ public class ArcaneBlast extends SpecialSkill {
 
         System.out.println(user.getName() + " unleashes Arcane Blast!");
     }
+
+    @Override
+    public boolean requiresTarget() 
+    {
+        return false;
+    }
 }
