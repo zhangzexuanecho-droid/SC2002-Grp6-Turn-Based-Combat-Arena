@@ -44,7 +44,7 @@ public abstract class Player extends Combatant {
         if (!isAlive()) return;
       
         /*
-        boolean canAct = processTurnStartEffects();
+        boolean canAct = updateStatusEffects();
         if (!canAct) {
             System.out.println(getName() + " cannot act this turn!");
             return;
