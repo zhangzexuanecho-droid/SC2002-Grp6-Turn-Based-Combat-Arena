@@ -10,24 +10,29 @@ public class Defend implements Action
     public void execute(Combatant user, Combatant target) 
     {
 
-        user.addStatusEffect(new StatusEffect() 
-        {
+        user.addStatusEffect(new StatusEffect() {
 
             private int duration = 2;
-
+            private boolean applied = false;
+        
             @Override
-            public void apply(Combatant target) 
-            {
-                target.defense += 10; // increase defense
+            public void apply(Combatant target) {
+                if (!applied) {
+                    target.defense += 10;
+                    applied = true;
+                }
                 duration--;
+        
+                if (duration <= 0) {
+                    target.defense -= 10; // remove buff
+                }
             }
-
+        
             @Override
-            public boolean isExpired() 
-            {
+            public boolean isExpired() {
                 return duration <= 0;
             }
-        });
+        });;
 
         System.out.println(user.getName() + " is defending!");
     }
