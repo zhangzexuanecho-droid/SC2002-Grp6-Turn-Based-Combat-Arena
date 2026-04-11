@@ -23,6 +23,12 @@ public class ShieldBash extends SpecialSkill
       
       System.out.println(user.getName() + " uses Shield Bash!");
     }
+
+    @Override
+    public boolean requiresTarget()
+    {
+        return true;
+    }
 }
           
                                
