@@ -7,21 +7,37 @@ import combat.StatusEffect;
 public class ShieldBash extends SpecialSkill 
 {
     @Override
-    protected void applySkill (Player user, Combatant target)
+    protected void applySkill(Player user, Combatant target)
     {
-      target.receiveDamage(user.getAttack());
-      target.addStatusEffect(new StatusEffect()
-      {
-        private int duration = 2;
+        if (target == null) return;
 
-        @Override 
-        public boolean isExpired()
+        // Deal damage
+        target.receiveDamage(user.getAttack());
+
+        // Apply stun ONLY to this target
+        target.addStatusEffect(new StatusEffect()
         {
-          return duration <=0;
-        }
-      });
-      
-      System.out.println(user.getName() + " uses Shield Bash!");
+            private int duration = 2;
+
+            @Override
+            public void apply(Combatant target)
+            {
+                target.setStunned(true);
+                duration--;
+
+                if (duration <= 0) {
+                    target.setStunned(false);
+                }
+            }
+
+            @Override
+            public boolean isExpired()
+            {
+                return duration <= 0;
+            }
+        });
+
+        System.out.println(user.getName() + " uses Shield Bash on " + target.getName() + "!");
     }
 
     @Override
@@ -30,6 +46,3 @@ public class ShieldBash extends SpecialSkill
         return true;
     }
 }
-          
-                               
-                
