@@ -1,13 +1,15 @@
 package combat.statusEffect;
 
+import combat.Combatant;
+
 public class DefendEffect implements StatusEffect {
 
     private int remainingTurns;
-    private int damageReduction;
+    private int reduction;
 
-    public DefendEffect(int turns, int damageReduction) {
+    public DefendEffect(int turns, int reduction) {
         this.remainingTurns = turns;
-        this.damageReduction = damageReduction;
+        this.reduction = reduction;
     }
 
     @Override
@@ -16,15 +18,17 @@ public class DefendEffect implements StatusEffect {
     }
 
     @Override
+    public boolean preventsAction() {
+        return false;
+    }
+
+    @Override
+    public int modifyIncomingDamage(int damage) {
+        return Math.max(0, damage - reduction);
+    }
+
+    @Override
     public boolean isExpired() {
         return remainingTurns <= 0;
-    }
-
-    public int reduceDamage(int damage) {
-        return Math.max(0, damage - damageReduction);
-    }
-
-    public boolean isActive() {
-        return remainingTurns > 0;
     }
 }
