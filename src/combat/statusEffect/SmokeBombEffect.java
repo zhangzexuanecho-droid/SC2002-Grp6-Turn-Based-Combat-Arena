@@ -1,5 +1,7 @@
 package combat.statusEffect;
 
+import combat.Combatant;
+
 public class SmokeBombEffect implements StatusEffect {
 
     private int remainingTurns;
@@ -10,20 +12,21 @@ public class SmokeBombEffect implements StatusEffect {
 
     @Override
     public void apply(Combatant target) {
-        // Just decrease duration each round
         remainingTurns--;
+    }
+
+    @Override
+    public boolean preventsAction() {
+        return false;
+    }
+
+    @Override
+    public int modifyIncomingDamage(int damage) {
+        return 0; 
     }
 
     @Override
     public boolean isExpired() {
         return remainingTurns <= 0;
-    }
-
-    public boolean isActive() {
-        return remainingTurns > 0;
-    }
-
-    public int getRemainingTurns() {
-        return remainingTurns;
     }
 }
