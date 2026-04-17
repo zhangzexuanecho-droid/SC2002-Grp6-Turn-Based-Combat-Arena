@@ -1,7 +1,7 @@
 package action;
 
 import combat.Combatant;
-import combat.StatusEffect;
+import combat.statusEffect.StatusEffect;
 
 public class Defend implements Action 
 {
@@ -32,6 +32,15 @@ public class Defend implements Action
             public boolean isExpired() {
                 return duration <= 0;
             }
+
+            @Override
+            public boolean preventsAction() {
+                return false; 
+            }
+
+            @Override
+            public int modifyIncomingDamage(int damage) {
+                return damage; 
         });;
 
         System.out.println(user.getName() + " is defending!");
