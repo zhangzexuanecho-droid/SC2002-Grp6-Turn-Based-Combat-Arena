@@ -2,6 +2,12 @@ package combat;
 
 import action.Action;
 import BattleEngine.GameUI;
+import action.Action;
+import action.BasicAttack;
+import action.Defend;
+import action.ShieldBash;
+import action.UseItem;
+
 public class Warrior extends Player {
 
     public Warrior() {
