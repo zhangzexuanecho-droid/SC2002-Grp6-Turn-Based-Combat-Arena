@@ -18,7 +18,7 @@ public class SmokeBomb implements Item {
 
     @Override
     public void use(Combatant user) {
-        
+        user.addStatusEffect(new SmokeBombEffect(duration));
         System.out.println(user.getName() + " → Item → Smoke Bomb used: "
                 + "Enemy attacks deal 0 damage this turn + next");
 
