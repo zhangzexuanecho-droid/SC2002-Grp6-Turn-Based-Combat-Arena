@@ -2,6 +2,8 @@ package BattleEngine;
 import java.util.Scanner;
 import java.util.List;
 import combat.Combatant;
+import item.Item;
+
 
 public class GameUI {
     
