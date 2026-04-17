@@ -10,6 +10,9 @@ public class PowerStone implements Item {
 
     @Override
     public void use(Combatant user) {
+        if (user instanceof Player) {
+            ((Player) user).setCooldown(0)
+        }
         System.out.println(user.getName() + " → Item → Power Stone used");
     }
 
