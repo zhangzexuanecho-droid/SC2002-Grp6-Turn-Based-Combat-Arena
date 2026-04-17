@@ -10,7 +10,7 @@ public class Defend implements Action
     public void execute(Combatant user, Combatant target) 
     {
 
-        user.addStatusEffect(new StatusEffect()) {
+        user.addStatusEffect(new StatusEffect() {
 
             private int duration = 2;
             private boolean applied = false;
