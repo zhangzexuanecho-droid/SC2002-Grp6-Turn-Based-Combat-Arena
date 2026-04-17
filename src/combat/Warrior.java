@@ -14,37 +14,7 @@ public class Warrior extends Player {
         super("Warrior", 260, 40, 20, 30);
     }
 
-    /*
-    public Action chooseAction() {
-        System.out.println("\n--- Choose your action ---");
-        System.out.println("1. Basic Attack");
-        System.out.println("2. Defend");
-        System.out.println("3. Use Item");
-        
-   
-        if (this.canUseSkill()) {
-            System.out.println("4. Special Skill (Shield Bash)");
-        } 
-        else {
-            System.out.println("4. [Skill Cooldown: " + getSkillCooldown() + " turns]");
-        }
-
-        int choice = scanner.nextInt();
     
-    
-        switch (choice) {
-            case 1: return new BasicAttack();
-            case 2: return new Defend(); 
-            case 3: return new UseItem(); 
-            case 4: 
-                if (this.canUseSkill()) return new ShieldBash();
-                else System.out.println("Skill not ready!");
-            default: 
-                System.out.println("Invalid choice, defaulting to Attack.");
-                return new BasicAttack();
-        }
-    }
-    */
     @Override
     public Action chooseAction(GameUI ui) {
         ui.displayActionMenu();
