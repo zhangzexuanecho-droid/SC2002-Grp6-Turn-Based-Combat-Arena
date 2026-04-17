@@ -58,10 +58,10 @@ public class BattleEngine {
                 if (currentCombatant.isAlive()) {
                     currentCombatant.takeTurn(this, ui);
                     processTurn();
-                    this.currentRound++;
                 }
             }
         }
+        this.currentRound++;
     }
 
     public boolean checkGameEnd() {
