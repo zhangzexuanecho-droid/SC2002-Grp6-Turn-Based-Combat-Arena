@@ -139,6 +139,17 @@ public class GameUI {
 
         return enemies.get(choice - 1);
     }
+
+    public int promptUseItemSelection(List<Item> inventory) {
+        System.out.println("\n--- Available Items ---");
+    
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println((i + 1) + ". " + inventory.get(i).getName());
+        }
+    
+        System.out.print("Choose an item to use: ");
+        return getValidInput(1, inventory.size());
+    }
     
     public void showMessage(String message) {
         System.out.println(message);
