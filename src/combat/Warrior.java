@@ -1,6 +1,5 @@
 package combat;
 
-import action.Action;
 import BattleEngine.GameUI;
 import action.Action;
 import action.BasicAttack;
@@ -36,7 +35,6 @@ public class Warrior extends Player {
     }
 
     public void useSpecialSkill(Combatant target) {
-        //this.skillCooldown = 3;
         System.out.println(this.name + " uses Shield Bash!");
     }
 }
