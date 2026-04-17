@@ -28,15 +28,13 @@ public class ArcaneBlast extends SpecialSkill {
             }
         }
 
-        // permanent attack buff for this level
-        user.attack += kills * 10;
+        user.increaseAttack(kills * 10);
 
         System.out.println(user.getName() + " unleashes Arcane Blast!");
     }
 
     @Override
-    public boolean requiresTarget() 
-    {
+    public boolean requiresTarget() {
         return false;
     }
 }
