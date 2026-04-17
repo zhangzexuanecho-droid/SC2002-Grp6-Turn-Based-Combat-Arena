@@ -14,7 +14,6 @@ import item.Item;
 import item.Potion;
 import item.PowerStone;
 import item.SmokeBomb;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,22 +33,36 @@ public class GameController {
             Player player = createPlayer();
             int difficulty = chooseDifficulty();
             String difficultyString = mapDifficultyToString(difficulty);
-
             chooseItems(player, difficultyString);
 
-            List<Combatant> combatants = createCombatants(player, difficulty);
-
             TurnOrderStrategy strategy = new SpeedBasedStrategy();
-            BattleEngine engine = new BattleEngine(combatants, strategy, ui);
+            boolean cleared = true;
+            int totalWaves = getTotalWaves(difficulty);
 
-            engine.startBattle();
+            for (int wave = 1; wave <= totalWaves; wave++) {
+                if (wave > 1) {
+                    ui.displayBackupSpawnTriggered();
+                }
+
+                List<Combatant> combatants = createCombatants(player, difficulty, wave);
+                BattleEngine engine = new BattleEngine(combatants, strategy, ui);
+                engine.startBattle();
+
+                if (!player.isAlive()) {
+                    cleared = false;
+                    break;
+                }
+            }
+
+            if (cleared) {
+                System.out.println("All waves cleared!");
+            } else {
+                System.out.println("Game Over!");
+            }
 
             int choice = ui.promptPostGameOptions();
-            if (choice == 1) {
-                continue;
-            } else if (choice == 2) {
-                continue;
-            } else {
+
+            if (choice == 3) {
                 running = false;
                 System.out.println("Thanks for playing!");
             }
@@ -92,24 +105,38 @@ public class GameController {
         }
     }
 
-    private List<Combatant> createCombatants(Player player, int difficulty) {
+    private List<Combatant> createCombatants(Player player, int difficulty, int wave) {
         List<Combatant> combatants = new ArrayList<>();
         combatants.add(player);
 
         switch (difficulty) {
-            case 1:
+            case 1: // easy
                 combatants.add(new Goblin());
                 combatants.add(new Goblin());
                 combatants.add(new Goblin());
                 break;
-            case 2:
-                combatants.add(new Goblin());
-                combatants.add(new Wolf());
+
+            case 2: // medium
+                if (wave == 1) {
+                    combatants.add(new Goblin());
+                    combatants.add(new Wolf());
+                } else if (wave == 2) {
+                    combatants.add(new Wolf());
+                    combatants.add(new Wolf());
+                }
                 break;
-            case 3:
-                combatants.add(new Goblin());
-                combatants.add(new Goblin());
+
+            case 3: // hard
+                if (wave == 1) {
+                    combatants.add(new Goblin());
+                    combatants.add(new Goblin());
+                } else if (wave == 2) {
+                    combatants.add(new Goblin());
+                    combatants.add(new Wolf());
+                    combatants.add(new Wolf());
+                }
                 break;
+
             default:
                 combatants.add(new Goblin());
                 combatants.add(new Goblin());
@@ -130,6 +157,18 @@ public class GameController {
                 return new SmokeBomb(difficulty);
             default:
                 return new Potion(difficulty);
+        }
+    }
+
+    private int getTotalWaves(int difficulty) {
+        switch (difficulty) {
+            case 1:
+                return 1;
+            case 2:
+            case 3:
+                return 2;
+            default:
+                return 1;
         }
     }
 }
