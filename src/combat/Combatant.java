@@ -2,6 +2,8 @@ package combat;
 import java.util.ArrayList;
 import java.util.List;
 
+import BattleEngine.*;
+
 public abstract class Combatant {
     protected String name;
     protected int hp;
