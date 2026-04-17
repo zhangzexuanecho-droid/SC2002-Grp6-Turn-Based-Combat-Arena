@@ -11,6 +11,7 @@ public class BattleEngine {
     private List<Combatant> combatants;
     private TurnOrderStrategy turnStrategy;
     private GameUI ui;
+    private int currentRound = 1;
 
     public BattleEngine(List<Combatant> combatants, TurnOrderStrategy turnStrategy, GameUI ui) {
         this.combatants = combatants;
@@ -23,10 +24,23 @@ public class BattleEngine {
             processRound();
         }
 
+        int remainingHP = 0;
+        int enemiesRemaining = 0;
+
+        for (Combatant c : combatants) {
+            if (c.isAlive()) {
+                if (c instanceof Player) {
+                    remainingHP = c.getHp();
+                } else if (c instanceof Enemy) {
+                    enemiesRemaining++;
+                }
+            }
+        }
+
         if (hasPlayerAlive()) {
-            System.out.println("Player wins!");
+            this.ui.displayPlayerVictory(remainingHP, currentRound) ;
         } else {
-            System.out.println("Enemies win!");
+            this.ui.displayPlayerDefeat(enemiesRemaining, currentRound);
         }
     }
 
@@ -44,6 +58,7 @@ public class BattleEngine {
                 if (currentCombatant.isAlive()) {
                     currentCombatant.takeTurn(this, ui);
                     processTurn();
+                    this.currentRound++;
                 }
             }
         }
