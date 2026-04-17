@@ -1,7 +1,7 @@
 package item;
 
 import combat.Combatant;
-import combat.Player
+import combat.Player;
 
 public class PowerStone implements Item {
 
