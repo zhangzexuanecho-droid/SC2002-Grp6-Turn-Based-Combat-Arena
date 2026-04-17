@@ -23,7 +23,7 @@ public class Warrior extends Player {
         switch (choice) {
             case 1: return new BasicAttack();
             case 2: return new Defend();
-            case 3: return new UseItem();
+            case 3: return new UseItem(ui);
             case 4:
                 if (canUseSkill()) return new ShieldBash();
                 else {
