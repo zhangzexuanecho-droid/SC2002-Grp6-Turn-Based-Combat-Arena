@@ -38,6 +38,9 @@ public class UseItem implements Action {
     }
 
     @Override
-    public boolean requiresTarget() {
+    public boolean requiresTarget() 
+    {
         return false; 
+    }
+        
 }
