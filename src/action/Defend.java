@@ -18,13 +18,13 @@ public class Defend implements Action
             @Override
             public void apply(Combatant target) {
                 if (!applied) {
-                    target.defense += 10;
+                    target.setDefense(target.getDefense() + 10);
                     applied = true;
                 }
                 duration--;
         
                 if (duration <= 0) {
-                    target.defense -= 10; // remove buff
+                    target.setDefense(target.getDefense() - 10); // remove buff
                 }
             }
         
