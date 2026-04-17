@@ -11,10 +11,12 @@ public class BattleEngine {
     
     private List<Combatant> combatants;
     private TurnOrderStrategy turnStrategy;
+    private GameUI ui;
 
-    public BattleEngine(List<Combatant> combatants, TurnOrderStrategy turnStrategy) {
+    public BattleEngine(List<Combatant> combatants, TurnOrderStrategy turnStrategy, GameUI ui) {
         this.combatants = combatants;
         this.turnStrategy = turnStrategy;
+        this.ui = ui;
     }
 
     public void startBattle() {
@@ -36,7 +38,7 @@ public class BattleEngine {
                 currentCombatant.applyStatusEffects();
                 
                 if (currentCombatant.isAlive()) {
-                    currentCombatant.takeTurn(this);
+                    currentCombatant.takeTurn(this, ui);
                     processTurn();
                 }
             }
@@ -69,7 +71,6 @@ public class BattleEngine {
         return aliveEnemies;
     } 
     
-
     public void processTurn() {
         combatants.removeIf(c -> !c.isAlive());
     }
