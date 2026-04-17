@@ -1,46 +1,81 @@
 package combat;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import item.Item;
+import action.Action;
 import BattleEngine.BattleEngine;
 import BattleEngine.GameUI;
 import action.Action;
-import action.BasicAttack;
+import item.Item;
 
-import java.util.List;
+public abstract class Player extends Combatant {
 
-public abstract class Enemy extends Combatant {
+    protected List<Item> inventory;
+    protected int skillCooldown;
 
-    public Enemy(String name, int hp, int attack, int defense, int speed) {
+    public Player(String name, int hp, int attack, int defense, int speed) {
         super(name, hp, attack, defense, speed);
+        this.inventory = new ArrayList<>();
+        this.skillCooldown = 0;
     }
 
-    public Action decideAction() {
-        return new BasicAttack();
+   
+    public Combatant selectTarget(BattleEngine engine, GameUI ui) {
+        List<Combatant> enemies = engine.getAliveEnemiesOf(this);
+
+        if (enemies.isEmpty()) {
+            ui.showMessage("No targets available.");
+            return null;
+        }
+
+        return ui.chooseTarget(enemies);
     }
-    
-   @Override
+
+    @Override
     public void takeTurn(BattleEngine engine, GameUI ui) {
+        if (!isAlive()) return;
+      
+ 
 
-        List<Combatant> targets = engine.getAliveEnemiesOf(this);
-        if (targets.isEmpty()) return;
-       
-       
-        boolean canAct = updateStatusEffects();
-        if (!canAct) {
-            System.out.println(getName() + " cannot act this turn!");
-            return;
+        if (skillCooldown > 0) {
+            skillCooldown--;
         }
-       
 
-        Combatant target = targets.get(0); // simplest
+        Action a = chooseAction(ui);
+        if (a == null) return;
 
-        Action action = decideAction(); 
+        Combatant target = null;
 
-        if (action.requiresTarget()) {
-            action.execute(this, target);
-        } 
-        else {
-            action.execute(this, null);
+        if (a.requiresTarget()) {
+            target = selectTarget(engine,ui);
         }
+
+        a.execute(this, target);
+    }
+
+    public abstract Action chooseAction(GameUI ui);
+
+    public boolean canUseSkill() {
+        return skillCooldown == 0;
+    }
+
+    public void setCooldown(int turns) {
+        this.skillCooldown = turns;
+    }
+
+    public int getSkillCooldown() {
+        return skillCooldown;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public Item removeItem(int index) {
+        if (index >= 0 && index < inventory.size()) {
+            return inventory.remove(index);
+        }
+        return null;
     }
 }
