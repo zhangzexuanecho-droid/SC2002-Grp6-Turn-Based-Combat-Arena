@@ -41,6 +41,7 @@ public class Defend implements Action
             @Override
             public int modifyIncomingDamage(int damage) {
                 return damage; 
+            }
         });
 
         System.out.println(user.getName() + " is defending!");
