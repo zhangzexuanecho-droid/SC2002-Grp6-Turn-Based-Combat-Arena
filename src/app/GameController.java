@@ -32,24 +32,22 @@ public class GameController {
             ui.displayInitiationScreen();
 
             Player player = createPlayer();
-            chooseItems(player);
-
             int difficulty = chooseDifficulty();
+            String difficultyString = mapDifficultyToString(difficulty);
+
+            chooseItems(player, difficultyString);
+
             List<Combatant> combatants = createCombatants(player, difficulty);
 
             TurnOrderStrategy strategy = new SpeedBasedStrategy();
-
-            // 这里要看你们 BattleEngine 的 constructor
             BattleEngine engine = new BattleEngine(combatants, strategy, ui);
 
             engine.startBattle();
 
             int choice = ui.promptPostGameOptions();
             if (choice == 1) {
-                // replay same settings
                 continue;
             } else if (choice == 2) {
-                // new game
                 continue;
             } else {
                 running = false;
@@ -68,17 +66,30 @@ public class GameController {
         }
     }
 
-    private void chooseItems(Player player) {
-        for (int i = 1; i <= 2; i++) {
-            int choice = ui.promptItemSelection(i);
-            Item item = createItem(choice);
-            player.addItem(item); 
-        }
-    }
-
     private int chooseDifficulty() {
         ui.displayDifficultyAndEnemies();
         return ui.promptDifficultySelection();
+    }
+
+    private String mapDifficultyToString(int difficulty) {
+        switch (difficulty) {
+            case 1:
+                return "easy";
+            case 2:
+                return "medium";
+            case 3:
+                return "hard";
+            default:
+                return "easy";
+        }
+    }
+
+    private void chooseItems(Player player, String difficulty) {
+        for (int i = 1; i <= 2; i++) {
+            int choice = ui.promptItemSelection(i);
+            Item item = createItem(choice, difficulty);
+            player.getInventory().add(item);
+        }
     }
 
     private List<Combatant> createCombatants(Player player, int difficulty) {
@@ -109,16 +120,16 @@ public class GameController {
         return combatants;
     }
 
-    private Item createItem(int choice) {
+    private Item createItem(int choice, String difficulty) {
         switch (choice) {
             case 1:
-                return new Potion();
+                return new Potion(difficulty);
             case 2:
-                return new PowerStone();
+                return new PowerStone(difficulty);
             case 3:
-                return new SmokeBomb();
+                return new SmokeBomb(difficulty);
             default:
-                return new Potion();
+                return new Potion(difficulty);
         }
     }
 }
