@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import item.Item;
 import action.Action;
+import BattleEngine.BattleEngine;
+import BattleEngine.GameUI;
 
 public abstract class Player extends Combatant {
 
@@ -17,7 +19,7 @@ public abstract class Player extends Combatant {
     }
 
     public Combatant selectTarget(BattleEngine engine) {
-        List<Combatant> enemies = engine.getAliveEnemiesOf(this);
+        List<Combatant> enemies = engine.getAliveEnemiesOf();
 
         if (enemies.isEmpty()) {
             System.out.println("No targets available.");
