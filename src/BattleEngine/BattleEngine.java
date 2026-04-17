@@ -61,15 +61,20 @@ public class BattleEngine {
         return !hasPlayerAlive || !hasEnemyAlive;
     }
 
-    public List<Combatant> getAliveEnemiesOf(){
+    public List<Combatant> getAliveEnemiesOf(Combatant self) {
         List<Combatant> aliveEnemies = new ArrayList<>();
+
         for (Combatant c : combatants) {
-            if (c instanceof Enemy && c.isAlive()) {
-                aliveEnemies.add(c);
+            if (c.isAlive()) {
+                if (self instanceof Player && c instanceof Enemy) {
+                    aliveEnemies.add(c);
+                } else if (self instanceof Enemy && c instanceof Player) {
+                    aliveEnemies.add(c);
+                }
             }
         }
         return aliveEnemies;
-    } 
+    }
     
     public void processTurn() {
         combatants.removeIf(c -> !c.isAlive());
