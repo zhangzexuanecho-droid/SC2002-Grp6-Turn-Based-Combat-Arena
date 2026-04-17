@@ -29,7 +29,7 @@ public class UseItem implements Action {
         }
 
         Scanner scanner = new Scanner(System.in);
-        int choice = Player.scanner.nextInt();
+        int choice = scanner.nextInt();
 
         if (choice < 0 || choice >= inv.size()) {
             System.out.println("Invalid choice!");
