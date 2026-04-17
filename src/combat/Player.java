@@ -19,7 +19,7 @@ public abstract class Player extends Combatant {
     }
 
     public Combatant selectTarget(BattleEngine engine) {
-        List<Combatant> enemies = engine.getAliveEnemiesOf();
+        List<Combatant> enemies = engine.getAliveEnemiesOf(this);
 
         if (enemies.isEmpty()) {
             System.out.println("No targets available.");
