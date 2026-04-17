@@ -59,6 +59,17 @@ public class BattleEngine {
         return !hasPlayerAlive || !hasEnemyAlive;
     }
 
+    public List<Combatant> getAliveEnemiesOf(){
+        List<Combatant> aliveEnemies = new ArrayList<>();
+        for (Combatant c : combatants) {
+            if (c instanceof Enemy && c.isAlive()) {
+                aliveEnemies.add(c);
+            }
+        }
+        return aliveEnemies;
+    } 
+    
+
     public void processTurn() {
         combatants.removeIf(c -> !c.isAlive());
     }
