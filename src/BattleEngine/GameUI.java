@@ -1,5 +1,7 @@
 package BattleEngine;
 import java.util.Scanner;
+import java.util.List;
+import combat.Combatant;
 
 public class GameUI {
     
@@ -124,6 +126,22 @@ public class GameUI {
         System.out.println("3. Exit");
         System.out.print("Choose an option: ");
         return getValidInput(1, 3);
+    }
+    
+    public Combatant chooseTarget(List<Combatant> enemies) {
+        System.out.println("Choose target:");
+
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println((i + 1) + ". " + enemies.get(i).getName());
+        }
+
+        int choice = getValidInput(1, enemies.size());
+
+        return enemies.get(choice - 1);
+    }
+    
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 
     // ==========================================
