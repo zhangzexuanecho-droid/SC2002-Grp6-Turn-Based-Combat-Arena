@@ -28,7 +28,13 @@ public class UseItem implements Action {
             System.out.println(i + ": " + inv.get(i).getName());
         }
 
+
         int choice = Player.scanner.nextInt();
+
+        if (choice < 0 || choice >= inv.size()) {
+            System.out.println("Invalid choice!");
+            return;
+        }
 
         Item item = player.removeItem(choice);
 
