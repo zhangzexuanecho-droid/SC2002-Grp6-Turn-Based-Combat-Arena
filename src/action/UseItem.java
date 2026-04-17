@@ -1,12 +1,19 @@
 package action;
-import java.util.Scanner;
+
 import combat.Combatant;
 import combat.Player;
 import item.Item;
+import BattleEngine.GameUI;
 
 import java.util.List;
 
 public class UseItem implements Action {
+
+    private GameUI ui;
+
+    public UseItem(GameUI ui) {
+        this.ui = ui;
+    }
 
     @Override
     public void execute(Combatant user, Combatant target) {
@@ -22,25 +29,13 @@ public class UseItem implements Action {
             return;
         }
 
-        System.out.println("Choose item:");
+        int choice = ui.promptUseItemSelection(inv);
 
-        for (int i = 0; i < inv.size(); i++) {
-            System.out.println(i + ": " + inv.get(i).getName());
-        }
+        Item selectedItem = inv.get(choice - 1);
 
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
+        selectedItem.use(player);
 
-        if (choice < 0 || choice >= inv.size()) {
-            System.out.println("Invalid choice!");
-            return;
-        }
-
-        Item item = player.removeItem(choice);
-
-        if (item != null) {
-            item.use(player);
-        }
+        inv.remove(choice - 1);
     }
 
     @Override
