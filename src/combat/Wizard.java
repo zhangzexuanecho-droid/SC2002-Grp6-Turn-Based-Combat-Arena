@@ -28,7 +28,7 @@ public class Wizard extends Player {
             case 2:
                 return new Defend();
             case 3:
-                return new UseItem();
+                return new UseItem(ui);
             case 4:
                 if (canUseSkill()) {
                 	return new ArcaneBlast();
