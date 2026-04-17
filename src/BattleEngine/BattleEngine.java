@@ -1,14 +1,13 @@
 package BattleEngine;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import combat.Combatant;
-import combat.Player;
 import combat.Enemy;
+import combat.Player;
 
 public class BattleEngine {
-    
+
     private List<Combatant> combatants;
     private TurnOrderStrategy turnStrategy;
     private GameUI ui;
@@ -23,6 +22,12 @@ public class BattleEngine {
         while (!checkGameEnd()) {
             processRound();
         }
+
+        if (hasPlayerAlive()) {
+            System.out.println("Player wins!");
+        } else {
+            System.out.println("Enemies win!");
+        }
     }
 
     public void processRound() {
@@ -34,9 +39,8 @@ public class BattleEngine {
             }
 
             if (currentCombatant.isAlive()) {
-
                 currentCombatant.applyStatusEffects();
-                
+
                 if (currentCombatant.isAlive()) {
                     currentCombatant.takeTurn(this, ui);
                     processTurn();
@@ -46,37 +50,52 @@ public class BattleEngine {
     }
 
     public boolean checkGameEnd() {
-        boolean hasPlayerAlive = false;
-        boolean hasEnemyAlive = false;
+        return !hasPlayerAlive() || !hasEnemyAlive();
+    }
 
+    private boolean hasPlayerAlive() {
         for (Combatant c : combatants) {
-            if (c.isAlive()) {
-                if (c instanceof Player) {
-                    hasPlayerAlive = true;
-                } else if (c instanceof Enemy) {
-                    hasEnemyAlive = true;
-                }
+            if (c.isAlive() && c instanceof Player) {
+                return true;
             }
         }
-        return !hasPlayerAlive || !hasEnemyAlive;
+        return false;
+    }
+
+    private boolean hasEnemyAlive() {
+        for (Combatant c : combatants) {
+            if (c.isAlive() && c instanceof Enemy) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void processTurn() {
+        combatants.removeIf(c -> !c.isAlive());
     }
 
     public List<Combatant> getAliveEnemiesOf(Combatant self) {
-        List<Combatant> aliveEnemies = new ArrayList<>();
+        List<Combatant> result = new java.util.ArrayList<>();
 
-        for (Combatant c : combatants) {
-            if (c.isAlive()) {
-                if (self instanceof Player && c instanceof Enemy) {
-                    aliveEnemies.add(c);
-                } else if (self instanceof Enemy && c instanceof Player) {
-                    aliveEnemies.add(c);
+        if (self instanceof Player) {
+            for (Combatant c : combatants) {
+                if (c instanceof Enemy && c.isAlive()) {
+                    result.add(c);
+                }
+            }
+        } else if (self instanceof Enemy) {
+            for (Combatant c : combatants) {
+                if (c instanceof Player && c.isAlive()) {
+                    result.add(c);
                 }
             }
         }
-        return aliveEnemies;
+
+        return result;
     }
-    
-    public void processTurn() {
-        combatants.removeIf(c -> !c.isAlive());
+
+    public List<Combatant> getCombatants() {
+        return combatants;
     }
 }
