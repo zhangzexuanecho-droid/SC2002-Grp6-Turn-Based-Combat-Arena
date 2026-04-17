@@ -1,5 +1,5 @@
 package action;
-
+import java.util.Scanner;
 import combat.Combatant;
 import combat.Player;
 import item.Item;
@@ -28,7 +28,7 @@ public class UseItem implements Action {
             System.out.println(i + ": " + inv.get(i).getName());
         }
 
-
+        Scanner scanner = new Scanner(System.in);
         int choice = Player.scanner.nextInt();
 
         if (choice < 0 || choice >= inv.size()) {
