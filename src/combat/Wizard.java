@@ -31,7 +31,7 @@ public class Wizard extends Player {
                 return new UseItem();
             case 4:
                 if (canUseSkill()) {
-                	return new ArcaneBlast(List<Combatant> enemies);
+                	return new ArcaneBlast();
                 } else {
                     System.out.println("Mana recovering... Skill not ready!");
                     return new BasicAttack();
