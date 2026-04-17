@@ -18,40 +18,23 @@ public abstract class Player extends Combatant {
         this.skillCooldown = 0;
     }
 
-    public Combatant selectTarget(BattleEngine engine) {
+   
+    public Combatant selectTarget(BattleEngine engine, GameUI ui) {
         List<Combatant> enemies = engine.getAliveEnemiesOf(this);
 
         if (enemies.isEmpty()) {
-            System.out.println("No targets available.");
+            ui.showMessage("No targets available.");
             return null;
         }
 
-        System.out.println("Choose target:");
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println((i + 1) + ". " + enemies.get(i).getName());
-        }
-
-        int choice = scanner.nextInt();
-
-        if (choice < 1 || choice > enemies.size()) {
-            System.out.println("Invalid choice, defaulting to first target.");
-            return enemies.get(0);
-        }
-
-        return enemies.get(choice - 1);
+        return ui.chooseTarget(enemies);
     }
 
     @Override
     public void takeTurn(BattleEngine engine, GameUI ui) {
         if (!isAlive()) return;
       
-        /*
-        boolean canAct = updateStatusEffects();
-        if (!canAct) {
-            System.out.println(getName() + " cannot act this turn!");
-            return;
-        }
-        */
+ 
 
         if (skillCooldown > 0) {
             skillCooldown--;
@@ -63,7 +46,7 @@ public abstract class Player extends Combatant {
         Combatant target = null;
 
         if (a.requiresTarget()) {
-            target = selectTarget(engine);
+            target = selectTarget(engine,ui);
         }
 
         a.execute(this, target);
