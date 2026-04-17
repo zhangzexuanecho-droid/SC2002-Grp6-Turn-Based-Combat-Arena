@@ -1,5 +1,6 @@
 package combat;
 
+
 import BattleEngine.BattleEngine;
 import BattleEngine.GameUI;
 import action.Action;
@@ -23,13 +24,13 @@ public abstract class Enemy extends Combatant {
         List<Combatant> targets = engine.getAliveEnemiesOf(this);
         if (targets.isEmpty()) return;
        
-       /*
+       
         boolean canAct = updateStatusEffects();
         if (!canAct) {
             System.out.println(getName() + " cannot act this turn!");
             return;
         }
-       */
+       
 
         Combatant target = targets.get(0); // simplest
 
