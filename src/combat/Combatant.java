@@ -1,8 +1,9 @@
 package combat;
 import java.util.ArrayList;
 import java.util.List;
-
-import BattleEngine.*;
+import BattleEngine.BattleEngine;
+import BattleEngine.GameUI;
+import combat.statusEffect.StatusEffect; 
 
 public abstract class Combatant {
     protected String name;
@@ -25,7 +26,7 @@ public abstract class Combatant {
 
     public abstract void takeTurn(BattleEngine engine, GameUI ui) ;
     
-    /*
+    
     public boolean updateStatusEffects() {
         boolean canAct = true;
 
@@ -43,15 +44,15 @@ public abstract class Combatant {
 
         return canAct;
     }
-    */
+    
 
     public void receiveDamage(int amount) {
         int actualDamage = Math.max(0, amount - defense);
-        /*
+        
         for (StatusEffect effect : statusEffects) {
             actualDamage = effect.modifyIncomingDamage(actualDamage);
         }
-        */
+        
         hp = Math.max(0, hp - actualDamage);
     }
 
@@ -88,6 +89,10 @@ public abstract class Combatant {
 
     public int getAttack() {
         return attack;
+    }
+    
+    public void increaseAttack(int amount) {
+        this.attack += amount;
     }
 
     public int getDefense() {
