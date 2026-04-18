@@ -1,6 +1,6 @@
 package combat;
 
-import action.Action;
+import BattleEngine.BattleEngine;
 import BattleEngine.GameUI;
 import action.Action;
 import action.BasicAttack;
@@ -14,19 +14,22 @@ public class Warrior extends Player {
         super("Warrior", 260, 40, 20, 30);
     }
 
-    
     @Override
-    public Action chooseAction(GameUI ui) {
+    public Action chooseAction(BattleEngine engine, GameUI ui) {
         ui.displayActionMenu();
         int choice = ui.getValidInput(1, 4);
 
         switch (choice) {
-            case 1: return new BasicAttack();
-            case 2: return new Defend();
-            case 3: return new UseItem(ui);
+            case 1:
+                return new BasicAttack();
+            case 2:
+                return new Defend();
+            case 3:
+                return new UseItem(ui);
             case 4:
-                if (canUseSkill()) return new ShieldBash();
-                else {
+                if (canUseSkill()) {
+                    return new ShieldBash();
+                } else {
                     System.out.println("Skill not ready!");
                     return new BasicAttack();
                 }
@@ -36,7 +39,6 @@ public class Warrior extends Player {
     }
 
     public void useSpecialSkill(Combatant target) {
-        //this.skillCooldown = 3;
         System.out.println(this.name + " uses Shield Bash!");
     }
 }
