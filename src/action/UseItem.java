@@ -1,10 +1,9 @@
 package action;
 
+import BattleEngine.GameUI;
 import combat.Combatant;
 import combat.Player;
 import item.Item;
-import BattleEngine.GameUI;
-
 import java.util.List;
 
 public class UseItem implements Action {
