@@ -25,8 +25,6 @@ public abstract class SpecialSkill implements Action
 
         applySkill(player, target);
         player.setCooldown(3);
-
-        //System.out.println(user.getName() + " uses their special skill!");
     }
     @Override
     public boolean requiresTarget() 
