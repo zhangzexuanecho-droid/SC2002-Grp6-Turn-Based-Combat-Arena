@@ -1,11 +1,11 @@
 package combat;
 
-import java.util.ArrayList;
-import java.util.List;
-import item.Item;
-import action.Action;
 import BattleEngine.BattleEngine;
 import BattleEngine.GameUI;
+import action.Action;
+import item.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Player extends Combatant {
 
@@ -40,7 +40,7 @@ public abstract class Player extends Combatant {
             skillCooldown--;
         }
 
-        Action a = chooseAction(ui);
+        Action a = chooseAction(engine, ui);
         if (a == null) return;
 
         Combatant target = null;
@@ -52,7 +52,7 @@ public abstract class Player extends Combatant {
         a.execute(this, target);
     }
 
-    public abstract Action chooseAction(GameUI ui);
+    public abstract Action chooseAction(BattleEngine engine, GameUI ui);
 
     public boolean canUseSkill() {
         return skillCooldown == 0;
