@@ -8,12 +8,8 @@ public class SmokeBomb implements Item {
     private int duration; 
 
     public SmokeBomb(String difficulty) {
-        switch (difficulty.toLowerCase()) {
-            case "easy": duration = 2; break;
-            case "medium": duration = 2; break;
-            case "hard": duration = 3; break;
-            default: duration = 2;
-        }
+        this.duration = difficulty.equalsIgnoreCase("hard") ? 3 : 2;
+    
     }
 
     @Override
