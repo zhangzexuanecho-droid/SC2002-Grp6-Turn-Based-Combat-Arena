@@ -1,8 +1,12 @@
 package item;
+
 import combat.Combatant;
 
 public class Potion implements Item {
     private static final int HEAL_AMOUNT = 100;
+
+    public Potion(String difficulty) {
+    }
 
     @Override
     public void use(Combatant target) {
