@@ -1,13 +1,12 @@
 package combat;
 
-import java.util.List;
-
+import BattleEngine.BattleEngine;
+import BattleEngine.GameUI;
 import action.Action;
+import action.ArcaneBlast;
 import action.BasicAttack;
 import action.Defend;
 import action.UseItem;
-import action.ArcaneBlast;
-import BattleEngine.GameUI;
 
 public class Wizard extends Player {
 
@@ -15,10 +14,8 @@ public class Wizard extends Player {
         super("Wizard", 200, 50, 10, 20);
     }
 
-    
     @Override
-    public Action chooseAction(GameUI ui) {
-
+    public Action chooseAction(BattleEngine engine, GameUI ui) {
         ui.displayActionMenu();
         int choice = ui.getValidInput(1, 4);
 
@@ -31,7 +28,7 @@ public class Wizard extends Player {
                 return new UseItem(ui);
             case 4:
                 if (canUseSkill()) {
-                	return new ArcaneBlast();
+                    return new ArcaneBlast(engine);
                 } else {
                     System.out.println("Mana recovering... Skill not ready!");
                     return new BasicAttack();
@@ -39,10 +36,5 @@ public class Wizard extends Player {
             default:
                 return new BasicAttack();
         }
-    }
-
-    public void useSpecialSkill(List<Combatant> targets) {
-        //this.skillCooldown = 3;
-        System.out.println(this.name + " uses Arcane Blast！");
     }
 }
