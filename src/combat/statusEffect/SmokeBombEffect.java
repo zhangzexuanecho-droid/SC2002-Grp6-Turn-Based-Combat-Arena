@@ -4,8 +4,8 @@ import combat.Combatant;
 public class SmokeBombEffect implements StatusEffect {
     private int remainingTurns;
 
-    public SmokeBombEffect() {
-        this.remainingTurns = 2; // current and next turn
+    public SmokeBombEffect(int turns) {
+        this.remainingTurns = turns;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class SmokeBombEffect implements StatusEffect {
 
     @Override
     public int modifyIncomingDamage(int damage) {
-        return 0; // nullify all incoming damage while active
+        return 0; 
     }
 
     @Override
