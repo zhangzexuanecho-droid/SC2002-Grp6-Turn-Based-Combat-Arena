@@ -1,12 +1,11 @@
 package BattleEngine;
-import java.util.Scanner;
-import java.util.List;
-import combat.Combatant;
-import item.Item;
 
+import combat.Combatant;
+import java.util.List;
+import java.util.Scanner;
 
 public class GameUI {
-    
+
     private Scanner scanner;
 
     public GameUI() {
@@ -21,12 +20,12 @@ public class GameUI {
         System.out.println("\n=================================================");
         System.out.println("      WELCOME TO THE TURN-BASED COMBAT ARENA     ");
         System.out.println("=================================================");
-        
+
         System.out.println("\n--- Available Classes ---");
         System.out.println("1. Warrior");
         System.out.println("   Attributes -> HP: 260 | ATK: 40 | DEF: 20 | SPD: 30");
         System.out.println("   Skill: Shield Bash (Deals BasicAttack damage, Stuns target for 2 turns)");
-        
+
         System.out.println("\n2. Wizard");
         System.out.println("   Attributes -> HP: 200 | ATK: 50 | DEF: 10 | SPD: 20");
         System.out.println("   Skill: Arcane Blast (Deals BasicAttack damage to ALL enemies. +10 ATK per kill)");
@@ -68,12 +67,27 @@ public class GameUI {
 
     public void displayRoundStart(int roundNumber) {
         System.out.println("\n=================================================");
-        System.out.println("                   ROUND " + roundNumber + "                   ");
+        System.out.println("                    ROUND " + roundNumber);
         System.out.println("=================================================");
     }
 
-    public void displayBackupSpawnTriggered() {
-        System.out.println("\n[!] WARNING: Initial enemies defeated. BACKUP SPAWN has entered the arena!");
+    public void displayWaveStart(int waveNumber, int totalWaves) {
+        System.out.println("\n#################################################");
+        System.out.println("                 WAVE " + waveNumber + " / " + totalWaves);
+        System.out.println("#################################################");
+    }
+
+    public void displayWaveCleared(int waveNumber, int remainingHP) {
+        System.out.println("\n=================================================");
+        System.out.println("                WAVE " + waveNumber + " CLEARED");
+        System.out.println("=================================================");
+        System.out.println("Your remaining HP: " + remainingHP);
+    }
+
+    public void displayBackupWaveIncoming(int nextWaveNumber) {
+        System.out.println("\n[!] Initial wave defeated.");
+        System.out.println("[!] Backup enemies are entering the arena...");
+        System.out.println("[!] Prepare for Wave " + nextWaveNumber + "!");
     }
 
     public void displayStatusEffectApplied(String combatantName, String effectName) {
@@ -90,11 +104,16 @@ public class GameUI {
     }
 
     public void displayActionExecution(String attacker, String actionName, String target, int damage) {
-        if (damage > 0) {
+        if (damage > 0 && target != null) {
             System.out.println("[>>] " + attacker + " uses " + actionName + " on " + target + " for " + damage + " damage!");
         } else {
             System.out.println("[>>] " + attacker + " uses " + actionName + ".");
         }
+    }
+
+    public void displayEnemyDefeated(String enemyName, int remainingHP) {
+        System.out.println("[X] " + enemyName + " has been eliminated!");
+        System.out.println("    Your remaining HP: " + remainingHP);
     }
 
     public void displayCombatantEliminated(String name) {
@@ -109,7 +128,7 @@ public class GameUI {
         System.out.println("\n*************************************************");
         System.out.println("                  VICTORY!                       ");
         System.out.println("*************************************************");
-        System.out.println("Congratulations, you have defeated all your enemies.");
+        System.out.println("Congratulations, you have defeated all waves of enemies.");
         System.out.println("Statistics: Remaining HP: " + remainingHP + " | Total Rounds: " + totalRounds);
     }
 
@@ -129,30 +148,17 @@ public class GameUI {
         System.out.print("Choose an option: ");
         return getValidInput(1, 3);
     }
-    
+
     public Combatant chooseTarget(List<Combatant> enemies) {
         System.out.println("Choose target:");
-
         for (int i = 0; i < enemies.size(); i++) {
             System.out.println((i + 1) + ". " + enemies.get(i).getName());
         }
 
         int choice = getValidInput(1, enemies.size());
-
         return enemies.get(choice - 1);
     }
 
-    public int promptUseItemSelection(List<Item> inventory) {
-        System.out.println("\n--- Available Items ---");
-    
-        for (int i = 0; i < inventory.size(); i++) {
-            System.out.println((i + 1) + ". " + inventory.get(i).getName());
-        }
-    
-        System.out.print("Choose an item to use: ");
-        return getValidInput(1, inventory.size());
-    }
-    
     public void showMessage(String message) {
         System.out.println(message);
     }
@@ -161,9 +167,6 @@ public class GameUI {
     // UTILITY METHODS
     // ==========================================
 
-    /**
-     * Helper method to ensure valid integer input within a range.
-     */
     public int getValidInput(int min, int max) {
         int choice = -1;
         while (true) {
@@ -176,9 +179,19 @@ public class GameUI {
                 }
             } else {
                 System.out.print("Invalid input format. Please enter a number: ");
-                scanner.next(); // Consume invalid input
+                scanner.next();
             }
         }
         return choice;
     }
+
+    public int promptUseItemSelection(java.util.List<item.Item> items) {
+    System.out.println("Choose item:");
+
+    for (int i = 0; i < items.size(); i++) {
+        System.out.println((i + 1) + ". " + items.get(i).getName());
+    }
+
+    return getValidInput(1, items.size());
+}
 }
