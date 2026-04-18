@@ -1,11 +1,10 @@
 package combat.statusEffect;
-
 import combat.Combatant;
 
 public class SmokeBombEffect implements StatusEffect {
-
     private int remainingTurns;
-
+    private boolean triggered = false; 
+    
     public SmokeBombEffect(int turns) {
         this.remainingTurns = turns;
     }
@@ -22,11 +21,15 @@ public class SmokeBombEffect implements StatusEffect {
 
     @Override
     public int modifyIncomingDamage(int damage) {
-        return 0; 
+        if (damage > 0) {
+            triggered = true; // absorb one hit then expire
+            return 0;
+        }
+        return damage;
     }
 
     @Override
     public boolean isExpired() {
-        return remainingTurns <= 0;
+        return remainingTurns <= 0 || triggered;
     }
 }
