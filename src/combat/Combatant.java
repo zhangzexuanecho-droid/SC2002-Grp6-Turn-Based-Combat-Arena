@@ -1,9 +1,9 @@
 package combat;
-import java.util.ArrayList;
-import java.util.List;
 import BattleEngine.BattleEngine;
 import BattleEngine.GameUI;
 import combat.statusEffect.StatusEffect; 
+import java.util.ArrayList;
+import java.util.List; 
 
 public abstract class Combatant {
     protected String name;
@@ -44,6 +44,7 @@ public abstract class Combatant {
 
         return canAct;
     }
+   
     
 
     public void receiveDamage(int amount) {
