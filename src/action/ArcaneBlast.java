@@ -9,10 +9,8 @@ public class ArcaneBlast extends SpecialSkill {
 
     private BattleEngine engine;
 
-    public ArcaneBlast() { }
-
-    public void setEngine(BattleEngine engine) {
-          this.engine = engine;
+    public ArcaneBlast(BattleEngine engine) {
+        this.engine = engine;
     }
 
     @Override
@@ -20,14 +18,19 @@ public class ArcaneBlast extends SpecialSkill {
         List<Combatant> enemies = engine.getAliveEnemiesOf(user);
         int kills = 0;
 
+        System.out.println(user.getName() + " unleashes Arcane Blast!");
+
         for (Combatant enemy : enemies) {
             if (!enemy.isAlive()) continue;
+
             enemy.receiveDamage(user.getAttack());
-            if (!enemy.isAlive()) kills++;
+
+            if (!enemy.isAlive()) {
+                kills++;
+            }
         }
 
         user.increaseAttack(kills * 10);
-        System.out.println(user.getName() + " unleashes Arcane Blast!");
     }
 
     @Override
